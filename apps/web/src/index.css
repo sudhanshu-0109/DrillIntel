@@ -1,0 +1,57 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+:root {
+  --color-bg: #FBF4E6;
+  --color-nav: #111111;
+  --color-brand: #88713C;
+  --color-research: #FF9AD5;
+  --color-ops: #F5D867;
+  --color-geo: #9BAB64;
+  --color-live: #B7CBEB;
+  --surface-white: #FFFFFF;
+  --radius-card: 20px;
+  --radius-control: 12px;
+  --shadow-card: 0 8px 30px rgba(17,17,17,.06);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg);
+  color: var(--color-nav);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.03);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(136, 113, 60, 0.25);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(136, 113, 60, 0.45);
+}
+
+/* Card glass / soft elevation utility */
+.card-surface {
+  background-color: #FFFFFF;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(136, 113, 60, 0.08);
+}
+
+.control-surface {
+  border-radius: var(--radius-control);
+  transition: all 0.15s ease-in-out;
+}

@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: nwis-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: nwis_db
+      POSTGRES_USER: nwis_admin
+      POSTGRES_PASSWORD: nwis_secure_password_2026
+    ports:
+      - "5432:5432"
+    volumes:
+      - nwis_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nwis_admin -d nwis_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: nwis-api
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://nwis_admin:nwis_secure_password_2026@postgres:5432/nwis_db
+      JWT_SECRET: nwis-sih26121-oil-india-secure-jwt-key-2026
+      DEMO_MODE: "true"
+      ENVIRONMENT: production
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  web:
+    build:
+      context: apps/web
+      dockerfile: Dockerfile
+    container_name: nwis-web
+    restart: always
+    depends_on:
+      - api
+    ports:
+      - "3000:80"
+
+volumes:
+  nwis_pgdata:
