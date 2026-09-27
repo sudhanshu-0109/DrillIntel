@@ -21,8 +21,8 @@ services:
 
   api:
     build:
-      context: .
-      dockerfile: apps/api/Dockerfile
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: nwis-api
     restart: always
     depends_on:
@@ -43,7 +43,7 @@ services:
 
   web:
     build:
-      context: apps/web
+      context: ./frontend
       dockerfile: Dockerfile
     container_name: nwis-web
     restart: always

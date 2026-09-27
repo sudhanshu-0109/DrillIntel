@@ -28,12 +28,17 @@ wheels/
 
 # Node / Web
 node_modules/
+dist/
+frontend/dist/
+frontend/node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 apps/web/dist/
 apps/web/node_modules/
 .npm
+.venv/
+backend/.venv/
 
 # Environments
 .env
